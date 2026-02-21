@@ -17,10 +17,36 @@ const riskColors = {
     high: { bg: '#FEE2E2', color: '#991B1B' },
 };
 
+const getCauseImage = (causeName: string, triageLevel: string) => {
+    const name = causeName.toLowerCase();
+
+    // Specific condition mappings
+    if (name.includes('heart') || name.includes('cardio') || name.includes('coronary') || name.includes('infarction')) return 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80'; // Cardiology
+    if (name.includes('skin') || name.includes('rash') || name.includes('dermatitis') || name.includes('melanoma')) return 'https://images.unsplash.com/photo-1607613009820-a29f4fd99f46?auto=format&fit=crop&w=400&q=80'; // Dermatology
+    if (name.includes('lung') || name.includes('respiratory') || name.includes('asthma') || name.includes('breath') || name.includes('pulmonary') || name.includes('pneumonia')) return 'https://images.unsplash.com/photo-1583324113626-70df0f4deaab?auto=format&fit=crop&w=400&q=80'; // Respiratory
+    if (name.includes('aqi') || name.includes('air pollution') || name.includes('smog')) return 'https://images.unsplash.com/photo-1473161922904-42fcd6da8a16?auto=format&fit=crop&w=400&q=80'; // AQI / Air Pollution
+    if (name.includes('brain') || name.includes('migraine') || name.includes('headache') || name.includes('neuro') || name.includes('stroke')) return 'https://images.unsplash.com/photo-1616012480717-fd9867059ca0?auto=format&fit=crop&w=400&q=80'; // Neurological
+    if (name.includes('stomach') || name.includes('gerd') || name.includes('digest') || name.includes('abdomen') || name.includes('ulcer')) return 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80'; // Digestive
+    if (name.includes('fever') || name.includes('infection') || name.includes('flu') || name.includes('virus')) return 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&w=400&q=80'; // Infection/Fever
+    if (name.includes('muscle') || name.includes('bone') || name.includes('joint') || name.includes('arthritis') || name.includes('fracture')) return 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80'; // Orthopedic
+    if (name.includes('nutrition') || name.includes('vitamin') || name.includes('deficiency') || name.includes('macro')) return 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80'; // Nutrition Macros
+    if (name.includes('anxiety') || name.includes('stress') || name.includes('depression') || name.includes('panic')) return 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80'; // Mental
+
+    // Triage-based fallbacks (data-driven tone)
+    if (triageLevel === 'emergency') return 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80'; // Urgent hospital setting, NOT low risk
+    if (triageLevel === 'urgent') return 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=400&q=80'; // Clinical assessment
+    if (triageLevel === 'primary') return 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=400&q=80'; // Standard doctor consultation
+    return 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80'; // Self-care, calm health visual
+};
+
 export default function LiveInsightsPanel() {
     const { t } = useTranslation();
     const { insights, emergencyActive } = useAppStore();
     const tc = triageColors[insights.triageLevel];
+
+    // Get dynamic image based on top cause or fallback to triage level
+    const topCause = insights.causes.length > 0 ? insights.causes[0].name : '';
+    const dynamicImage = getCauseImage(topCause, insights.triageLevel);
 
     return (
         <div style={{
@@ -40,6 +66,25 @@ export default function LiveInsightsPanel() {
                         <span style={{ fontWeight: 700, fontSize: 15 }}>{t('insights.emergency')}</span>
                     </div>
                     <p style={{ fontSize: 13, opacity: 0.9 }}>Seek immediate medical attention</p>
+                </div>
+            )}
+
+            {/* AI Visual Context (Dynamic) */}
+            {insights.causes.length > 0 && (
+                <div style={{
+                    width: '100%', height: 140, borderRadius: 16, overflow: 'hidden',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.06)', position: 'relative',
+                }}>
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)', zIndex: 1 }} />
+                    <img
+                        src={dynamicImage}
+                        alt={topCause || 'Medical Visual'}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 12, left: 14, zIndex: 2, color: 'white' }}>
+                        <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.9, marginBottom: 2 }}>Contextual Match</div>
+                        <div style={{ fontSize: 15, fontWeight: 700 }}>{topCause}</div>
+                    </div>
                 </div>
             )}
 

@@ -12,9 +12,9 @@ const emojis = [
 ];
 
 const resources = [
-    { title: 'Guided Meditation', desc: '10-minute sessions to reduce stress.', img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80' },
-    { title: 'Sleep Stories', desc: 'Calming narratives to help you drift off.', img: 'https://images.unsplash.com/photo-1541781777631-fa95375dd068?auto=format&fit=crop&w=400&q=80' },
-    { title: 'CBT Exercises', desc: 'Tools to manage anxiety and negative thoughts.', img: 'https://images.unsplash.com/photo-1544367563-12123d8965cd?auto=format&fit=crop&w=400&q=80' },
+    { title: 'Guided Meditation', desc: '10-minute sessions to reduce stress.', img: 'https://images.unsplash.com/photo-1520694478166-daaaaaec7ce5?auto=format&fit=crop&w=400&q=80' },
+    { title: 'Sleep Stories', desc: 'Calming narratives to help you drift off.', img: 'https://images.unsplash.com/photo-1511295742362-92c96c5ade36?auto=format&fit=crop&w=400&q=80' },
+    { title: 'CBT Exercises', desc: 'Tools to manage anxiety and negative thoughts.', img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80' },
 ];
 
 export default function MentalHealthPage() {

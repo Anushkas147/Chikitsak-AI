@@ -43,7 +43,7 @@ const conditions = [
     {
         id: 'anxiety', name: 'Generalized Anxiety Disorder', category: 'Mental Health',
         desc: 'Severe, ongoing anxiety that interferes with daily activities.',
-        img: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=400&q=80',
+        img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80',
         detail: {
             overview: 'GAD involves persistent and excessive worry about everyday situations. It is one of the most common anxiety disorders, affecting approximately 6.8 million adults. Symptoms often coexist with depression.',
             symptoms: ['Persistent worrying or anxiety', 'Restlessness or feeling on edge', 'Difficulty concentrating', 'Muscle tension', 'Sleep disturbances', 'Irritability'],
